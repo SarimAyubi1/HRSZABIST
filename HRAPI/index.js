@@ -43,6 +43,15 @@ app.get('/countriesTotal', async (req, res) => {
     }
 });
 
+app.get('/country', async (req, res) => {
+    try {
+        const result = await pool.query('select * from countries');
+        res.json(result.rows);
+    } catch (err) {
+        res.status(500).json({ Error: err.message });
+    }
+});
+
 app.get('/regionsTotal', async (req, res) => {
     try {
         const result = await pool.query('select count(region_name) from regions');
